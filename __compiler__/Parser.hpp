@@ -6,41 +6,43 @@
 #include "Tokenizer.hpp" // Use the new extended tokenizer
 #include "AST.hpp"
 
+using namespace std;
+
 class Parser {
 public:
-    explicit Parser(std::vector<Token> tokens);
+    explicit Parser(vector<Token> tokens);
 
     // The main entry point for parsing.
-    std::vector<std::unique_ptr<Stmt>> parse();
+    vector<unique_ptr<Stmt>> parse();
 
 private:
     // A simple exception class for parsing errors.
-    class ParseError : public std::runtime_error {
+    class ParseError : public runtime_error {
     public:
-        using std::runtime_error::runtime_error;
+        using runtime_error::runtime_error;
     };
 
     // --- Grammar Rule Methods ---
-    std::unique_ptr<Stmt> declaration();
-    std::unique_ptr<Stmt> function_declaration();
-    std::unique_ptr<Stmt> statement();
-    std::unique_ptr<Stmt> if_statement();
-    std::vector<std::unique_ptr<Stmt>> block();
-    std::unique_ptr<Stmt> return_statement();
-    std::unique_ptr<Stmt> expression_statement();
+    unique_ptr<Stmt> declaration();
+    unique_ptr<Stmt> function_declaration();
+    unique_ptr<Stmt> statement();
+    unique_ptr<Stmt> if_statement();
+    vector<unique_ptr<Stmt>> block();
+    unique_ptr<Stmt> return_statement();
+    unique_ptr<Stmt> expression_statement();
     
-    std::unique_ptr<Expr> expression();
-    std::unique_ptr<Expr> assignment();
-    std::unique_ptr<Expr> equality();
-    std::unique_ptr<Expr> comparison();
-    std::unique_ptr<Expr> term();
-    std::unique_ptr<Expr> factor();
-    std::unique_ptr<Expr> unary();
-    std::unique_ptr<Expr> primary();
+    unique_ptr<Expr> expression();
+    unique_ptr<Expr> assignment();
+    unique_ptr<Expr> equality();
+    unique_ptr<Expr> comparison();
+    unique_ptr<Expr> term();
+    unique_ptr<Expr> factor();
+    unique_ptr<Expr> unary();
+    unique_ptr<Expr> primary();
 
     // --- Helper Methods ---
     // Checks if the current token is one of the given types.
-    bool match(const std::vector<TokenType>& types);
+    bool match(const vector<TokenType>& types);
     // Checks the type of the current token without consuming it.
     bool check(TokenType type) const;
     // New helper for lookahead, one token into the future.
@@ -54,11 +56,11 @@ private:
     // Returns the previous token.
     Token previous() const;
     // Consumes a token of a specific type or throws an error.
-    Token consume(TokenType type, const std::string& message);
+    Token consume(TokenType type, const string& message);
     // Error handling and synchronization.
-    ParseError error(const Token& token, const std::string& message);
+    ParseError error(const Token& token, const string& message);
     void synchronize();
 
-    std::vector<Token> m_tokens;
+    vector<Token> m_tokens;
     size_t m_current = 0;
 };

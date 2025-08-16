@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include<typeinfo>
 #include "Tokenizer.hpp"
 #include "Parser.hpp"
 
@@ -12,7 +13,8 @@ int main() {
             x = 10 + 20 * 2;
             if (x > 40) {
                 return x;
-            } else {
+            }
+             else {
                 return 0;
             }
         }

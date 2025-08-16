@@ -1,4 +1,0 @@
-hi TypeError if {
-      int a="hi there";
-
-}
